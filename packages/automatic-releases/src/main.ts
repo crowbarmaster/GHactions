@@ -17,6 +17,7 @@ type Args = {
   draftRelease: boolean;
   preRelease: boolean;
   releaseTitle: string;
+  releaseBody: string;
   files: string[];
 };
 
@@ -27,6 +28,7 @@ const getAndValidateArgs = (): Args => {
     draftRelease: JSON.parse(core.getInput('draft', {required: true})),
     preRelease: JSON.parse(core.getInput('prerelease', {required: true})),
     releaseTitle: core.getInput('title', {required: false}),
+    releaseBody: core.getInput('body', {required: false}),
     files: [] as string[],
   };
 
@@ -309,7 +311,7 @@ export const main = async (): Promise<void> => {
       name: args.releaseTitle ? args.releaseTitle : releaseTag,
       draft: args.draftRelease,
       prerelease: args.preRelease,
-      body: changelog,
+      body: args.releaseBody ? args.ReleaseBody :x changelog,
     });
 
     await uploadReleaseArtifacts(client, releaseUploadUrl, args.files);

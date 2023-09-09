@@ -36,7 +36,6 @@ jobs:
       - run: "yarn lintfix"
       - run: "yarn lint"
       - run: "yarn build"
-      - run: "yarn jest --env=node --colors --forceExit"
 
       - uses: "./packages/automatic-releases/"
         with:

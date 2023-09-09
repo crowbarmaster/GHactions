@@ -30,6 +30,7 @@ jobs:
 
       - run: "yarn install --frozen-lockfile"
       - run: "yarn lintfix"
+      - run: "yarn lint"
       - run: "yarn build"
       - run: "yarn jest --env=node --colors --forceExit"
 

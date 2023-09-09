@@ -20,7 +20,7 @@ inputs:
     description: "Release title (for automatic releases)"
     required: false
   body:
-    description: "Release title (for automatic releases)"
+    description: "Release body (for automatic releases)"
     required: false
   files:
     description: "Assets to upload to the release"

@@ -29,9 +29,9 @@ describe('main handler processing tagged releases', () => {
     process.env['GITHUB_REF'] = 'refs/tags/v0.0.1';
     process.env['GITHUB_WORKFLOW'] = 'keybase';
     process.env['GITHUB_ACTION'] = 'self';
-    process.env['GITHUB_ACTOR'] = 'marvinpinto';
+    process.env['GITHUB_ACTOR'] = 'crowbarmaster';
     process.env['GITHUB_EVENT_PATH'] = path.join(__dirname, 'payloads', 'git-push.json');
-    process.env['GITHUB_REPOSITORY'] = 'marvinpinto/private-actions-tester';
+    process.env['GITHUB_REPOSITORY'] = 'crowbarmaster/private-actions-tester';
 
     uploadReleaseArtifacts.mockImplementation().mockResolvedValue({});
   });
@@ -57,7 +57,7 @@ describe('main handler processing tagged releases', () => {
 
     const searchForPreviousReleaseTag = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/tags`)
+      .get(`/repos/crowbarmaster/private-actions-tester/tags`)
       .reply(200, [
         {
           name: 'v0.0.0',
@@ -90,22 +90,22 @@ describe('main handler processing tagged releases', () => {
 
     const getCommitsSinceRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/compare/HEAD...${testGhSHA}`)
+      .get(`/repos/crowbarmaster/private-actions-tester/compare/HEAD...${testGhSHA}`)
       .reply(200, compareCommitsPayload);
 
     const getRef = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/git/refs/tags/v0.0.0`)
+      .get(`/repos/crowbarmaster/private-actions-tester/git/refs/tags/v0.0.0`)
       .reply(404);
 
     const listAssociatedPRs = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/commits/${testGhSHA}/pulls`)
+      .get(`/repos/crowbarmaster/private-actions-tester/commits/${testGhSHA}/pulls`)
       .reply(200, []);
 
     const createRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .post('/repos/marvinpinto/private-actions-tester/releases', {
+      .post('/repos/crowbarmaster/private-actions-tester/releases', {
         tag_name: 'v0.0.1',
         name: 'v0.0.1',
         draft: testInputDraft,

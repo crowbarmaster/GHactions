@@ -33,9 +33,9 @@ describe('main handler processing automatic releases', () => {
     process.env['GITHUB_REF'] = 'refs/heads/automatic-pre-releaser';
     process.env['GITHUB_WORKFLOW'] = 'keybase';
     process.env['GITHUB_ACTION'] = 'self';
-    process.env['GITHUB_ACTOR'] = 'marvinpinto';
+    process.env['GITHUB_ACTOR'] = 'crowbarmaster';
     process.env['GITHUB_EVENT_PATH'] = path.join(__dirname, 'payloads', 'git-push.json');
-    process.env['GITHUB_REPOSITORY'] = 'marvinpinto/private-actions-tester';
+    process.env['GITHUB_REPOSITORY'] = 'crowbarmaster/private-actions-tester';
 
     uploadReleaseArtifacts.mockImplementation().mockResolvedValue({});
   });
@@ -62,22 +62,22 @@ describe('main handler processing automatic releases', () => {
 
     const getCommitsSinceRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/compare/HEAD...${testGhSHA}`)
+        .get(`/repos/crowbarmaster/private-actions-tester/compare/HEAD...${testGhSHA}`)
       .reply(200, compareCommitsPayload);
 
     const getRef = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/git/refs/tags/${testInputAutomaticReleaseTag}`)
+        .get(`/repos/crowbarmaster/private-actions-tester/git/refs/tags/${testInputAutomaticReleaseTag}`)
       .reply(404);
 
     const listAssociatedPRs = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/commits/${testGhSHA}/pulls`)
+        .get(`/repos/crowbarmaster/private-actions-tester/commits/${testGhSHA}/pulls`)
       .reply(200, []);
 
     const createRef = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .post('/repos/marvinpinto/private-actions-tester/git/refs', {
+        .post('/repos/crowbarmaster/private-actions-tester/git/refs', {
         ref: `refs/tags/${testInputAutomaticReleaseTag}`,
         sha: testGhSHA,
       })
@@ -85,7 +85,7 @@ describe('main handler processing automatic releases', () => {
 
     const getReleaseByTag = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/releases/tags/${testInputAutomaticReleaseTag}`)
+        .get(`/repos/crowbarmaster/private-actions-tester/releases/tags/${testInputAutomaticReleaseTag}`)
       .reply(400);
 
     const deleteRelease = nock('https://api.github.com')
@@ -95,7 +95,7 @@ describe('main handler processing automatic releases', () => {
 
     const createRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .post('/repos/marvinpinto/private-actions-tester/releases', {
+        .post('/repos/crowbarmaster/private-actions-tester/releases', {
         tag_name: testInputAutomaticReleaseTag,
         name: testInputTitle,
         draft: testInputDraft,
@@ -142,7 +142,7 @@ describe('main handler processing automatic releases', () => {
 
     const getPreviousReleaseSHA = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/git/refs/tags/${testInputAutomaticReleaseTag}`)
+      .get(`/repos/crowbarmaster/private-actions-tester/git/refs/tags/${testInputAutomaticReleaseTag}`)
       .reply(200, {
         object: {
           sha: previousReleaseSHA,
@@ -151,17 +151,17 @@ describe('main handler processing automatic releases', () => {
 
     const getCommitsSinceRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/compare/${testInputAutomaticReleaseTag}...${testGhSHA}`)
+      .get(`/repos/crowbarmaster/private-actions-tester/compare/${testInputAutomaticReleaseTag}...${testGhSHA}`)
       .reply(200, compareCommitsPayload);
 
     const listAssociatedPRs = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/commits/${testGhSHA}/pulls`)
+      .get(`/repos/crowbarmaster/private-actions-tester/commits/${testGhSHA}/pulls`)
       .reply(200, [{number: '22', html_url: 'https://example.com/PR22'}]);
 
     const createRef = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .post('/repos/marvinpinto/private-actions-tester/git/refs', {
+      .post('/repos/crowbarmaster/private-actions-tester/git/refs', {
         ref: `refs/tags/${testInputAutomaticReleaseTag}`,
         sha: testGhSHA,
       })
@@ -169,7 +169,7 @@ describe('main handler processing automatic releases', () => {
 
     const updateRef = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .patch(`/repos/marvinpinto/private-actions-tester/git/refs/tags/${testInputAutomaticReleaseTag}`, {
+      .patch(`/repos/crowbarmaster/private-actions-tester/git/refs/tags/${testInputAutomaticReleaseTag}`, {
         sha: testGhSHA,
         force: true,
       })
@@ -177,19 +177,19 @@ describe('main handler processing automatic releases', () => {
 
     const getReleaseByTag = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .get(`/repos/marvinpinto/private-actions-tester/releases/tags/${testInputAutomaticReleaseTag}`)
+      .get(`/repos/crowbarmaster/private-actions-tester/releases/tags/${testInputAutomaticReleaseTag}`)
       .reply(200, {
         id: foundReleaseId,
       });
 
     const deleteRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .delete(`/repos/marvinpinto/private-actions-tester/releases/${foundReleaseId}`)
+      .delete(`/repos/crowbarmaster/private-actions-tester/releases/${foundReleaseId}`)
       .reply(200);
 
     const createRelease = nock('https://api.github.com')
       .matchHeader('authorization', `token ${testGhToken}`)
-      .post('/repos/marvinpinto/private-actions-tester/releases', {
+      .post('/repos/crowbarmaster/private-actions-tester/releases', {
         tag_name: testInputAutomaticReleaseTag,
         name: testInputTitle,
         draft: testInputDraft,

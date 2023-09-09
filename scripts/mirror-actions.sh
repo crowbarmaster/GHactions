@@ -12,7 +12,7 @@ if [[ -z "$GITHUB_SUPER_TOKEN" ]]; then
   exit 1
 fi
 
-ACTION_AUTOMATIC_RELEASES_REPO="action-automatic-releases"
+ACTION_AUTOMATIC_RELEASES_REPO="GH-Automatic-Releases"
 TAG=$1
 GITHUB_LOGIN="crowbarmaster"
 RELEASE_BODY="Details available at [crowbarmaster/GHactions@${TAG}](https://github.com/crowbarmaster/GHactions/releases/tag/${TAG})."
@@ -23,7 +23,7 @@ if [[ "$TAG" == "latest" ]]; then
 fi
 
 if [[ "$GITHUB_REPOSITORY" != "crowbarmaster/GHactions" ]]; then
-  echo "This mirror script is only meant to be run from marvinpinto/actions, not ${GITHUB_REPOSITORY}. Nothing to do here."
+  echo "This mirror script is only meant to be run from crowbarmaster/GHactions, not ${GITHUB_REPOSITORY}. Nothing to do here."
   exit 0
 fi
 
@@ -79,7 +79,7 @@ END
 
 # Mirroring Automatic Releases
 rm -rf "/tmp/${ACTION_AUTOMATIC_RELEASES_REPO}"
-git clone "https://marvinpinto:${GITHUB_SUPER_TOKEN}@github.com/marvinpinto/${ACTION_AUTOMATIC_RELEASES_REPO}.git" /tmp/${ACTION_AUTOMATIC_RELEASES_REPO}
+git clone "https://crowbarmaster:${GITHUB_SUPER_TOKEN}@github.com/crowbarmaster/${ACTION_AUTOMATIC_RELEASES_REPO}.git" /tmp/${ACTION_AUTOMATIC_RELEASES_REPO}
 cp -R packages/automatic-releases/dist /tmp/${ACTION_AUTOMATIC_RELEASES_REPO}/
 cp packages/automatic-releases/README.md /tmp/${ACTION_AUTOMATIC_RELEASES_REPO}/
 cp packages/automatic-releases/action.yml /tmp/${ACTION_AUTOMATIC_RELEASES_REPO}/

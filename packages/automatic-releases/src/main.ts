@@ -309,7 +309,7 @@ export const main = async (): Promise<void> => {
       repo: context.repo.repo,
       tag_name: releaseTag,
       name: args.releaseTitle ? args.releaseTitle : releaseTag,
-	    body: args.releaseBody ? args.releaseBody : changelog,
+      body: args.releaseBody ? args.releaseBody : changelog,
       draft: args.draftRelease,
       prerelease: args.preRelease,
     });

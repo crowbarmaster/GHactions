@@ -9,6 +9,10 @@
     "eslintPaths": "src/**/*.ts __tests__/**/*.ts .*.js *.js",
     "prettierPaths": "**/*.{json,md,yaml,yml} !package.json"
   },
+    "engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=16.0.0 <17.0.0"
+  },
   "scripts": {
     "build": "webpack --config webpack.config.js --colors --openssl-legacy-provider",
     "clean": "rm -rf node_modules yarn-error.log dist",
@@ -20,20 +24,22 @@
     "lintfix:prettier": "prettier --color --write $npm_package_config_prettierPaths"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "@actions/core": "^1.2.6",
-    "@actions/github": "2.0.0",
+    "@actions/github": "^2.0.0",
     "@octokit/rest": "16.36.0",
     "conventional-changelog-angular": "^5.0.12",
     "conventional-commits-parser": "^3.2.0",
     "globby": "^11.0.1",
     "md5-file": "^5.0.0",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "express": "^4.17.1",
     "nock": "^13.0.5",
     "portfinder": "^1.0.28",
-    "@types/node": ">=16.0.0 <17.0.0",
+    "@types/node": "^>=16.0.0 <17.0.0",
     "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^6.2.1",
     "webpack": "^4.41.4",

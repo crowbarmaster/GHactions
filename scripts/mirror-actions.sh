@@ -55,7 +55,7 @@ create_tagged_release() {
   # Add all the changed files and push the changes upstream
   git add -f .
   git commit -m "Update release files for tag: ${TAG}" || true
-  git push -f origin master:master
+  git push -f origin main:main
   git tag $TAG
   git push origin $TAG
 

@@ -19,6 +19,9 @@ inputs:
   title:
     description: "Release title (for automatic releases)"
     required: false
+  body:
+    description: "Release title (for automatic releases)"
+    required: false
   files:
     description: "Assets to upload to the release"
     required: false
@@ -28,7 +31,7 @@ outputs:
   upload_url:
     description: "The URL for uploading additional assets to the release"
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
 branding:
   icon: "git-merge"

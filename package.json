@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "yarn jest --env=node --colors",
-    "build": "lerna run build --stream",
+    "build": "lerna run build --stream --openssl-legacy-provider",
     "clean": "lerna run clean --stream && rm -rf node_modules yarn-error.log",
     "reinstall": "yarn clean; yarn install --frozen-lockfile",
     "lint": "lerna run lint --stream && yarn run lint:eslint && yarn run lint:prettier",

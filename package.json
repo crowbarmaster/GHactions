@@ -1,7 +1,7 @@
 {
   "name": "github-actions",
   "version": "0.0.0",
-  "author": "Marvin Pinto",
+  "author": "Marvin Pinto/Crowbarmaster",
   "license": "MIT",
   "private": true,
   "workspaces": [
@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marvinpinto/actions.git"
+    "url": "git+https://github.com/crowbarmaster/GHactions.git"
   },
   "config": {
     "eslintPaths": ".*.js *.js",

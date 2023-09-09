@@ -311,7 +311,7 @@ export const main = async (): Promise<void> => {
       name: args.releaseTitle ? args.releaseTitle : releaseTag,
       draft: args.draftRelease,
       prerelease: args.preRelease,
-      body: args.releaseBody ? args.ReleaseBody :x changelog,
+      body: args.releaseBody ? args.ReleaseBody : changelog,
     });
 
     await uploadReleaseArtifacts(client, releaseUploadUrl, args.files);

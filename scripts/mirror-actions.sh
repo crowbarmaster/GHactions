@@ -35,7 +35,7 @@ create_tagged_release() {
   git config user.email "${GITHUB_LOGIN}@users.noreply.github.com"
   git config user.name "$GITHUB_LOGIN"
 
-  # Obtain the release ID for the previous release of $TAG (if present)
+  # Obtain the release ID for the previous release of $TAG (if present).
   local previous_release_id=$(curl --user ${GITHUB_LOGIN}:${GITHUB_SUPER_TOKEN} --request GET --silent https://api.github.com/repos/${GITHUB_LOGIN}/${REPO}/releases/tags/${TAG} | jq '.id')
 
   # Delete the previous release (if present)

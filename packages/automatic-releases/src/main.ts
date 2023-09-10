@@ -1,15 +1,21 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
-import {Context} from '@actions/github/lib/context';
-import * as Octokit from '@octokit/rest';
-import {dumpGitHubEventPayload} from '../../keybase-notifications/src/utils';
-import {sync as commitParser} from 'conventional-commits-parser';
-import {getChangelogOptions} from './utils';
-import {isBreakingChange, generateChangelogFromParsedCommits, parseGitTag, ParsedCommits, octokitLogger} from './utils';
+import { Context } from '@actions/github/lib/context';
+import { Endpoints } from '@octokit/types';
+import { dumpGitHubEventPayload } from '../../keybase-notifications/src/utils';
+import { sync as commitParser } from 'conventional-commits-parser';
+import { getChangelogOptions, ReposCompareCommitsResponseCommitsItem } from './utils';
+import { isBreakingChange, generateChangelogFromParsedCommits, parseGitTag, ParsedCommits, octokitLogger } from './utils';
 import semverValid from 'semver/functions/valid';
 import semverRcompare from 'semver/functions/rcompare';
 import semverLt from 'semver/functions/lt';
-import {uploadReleaseArtifacts} from './uploadReleaseArtifacts';
+import { uploadReleaseArtifacts } from './uploadReleaseArtifacts';
+
+type GitCreateRefParams = Endpoints['POST /repos/{owner}/{repo}/git/refs']['parameters'];
+type GitGetRefParams = Endpoints['GET /repos/{owner}/{repo}/git/ref/{ref}']['parameters'];
+type ReposListTagsParams = Endpoints['GET /repos/{owner}/{repo}/tags']['parameters'];
+type ReposGetReleaseByTagParams = Endpoints['GET /repos/{owner}/{repo}/releases/tags/{tag}']['parameters'];
+type ReposCreateReleaseParams = Endpoints['POST /repos/{owner}/{repo}/releases']['parameters'];
 
 type Args = {
   repoToken: string;

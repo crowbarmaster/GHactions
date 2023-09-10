@@ -4,7 +4,6 @@ name: "pre-release"
 on:
   push:
     branches:
-      - "master"
       - "upgrade"
     tags-ignore:
       - "*"
@@ -19,6 +18,7 @@ jobs:
       - name: "Checkout source code"
         uses: "actions/checkout@v4.0.0"
         with:
+          ref: "upgrade"
           lfs: true
           fetch-depth: 0
 

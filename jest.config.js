@@ -9,13 +9,6 @@ module.exports = {
   },
   collectCoverage: true,
   projects: [
-    {
-      name: 'automatic-releases',
-      displayName: 'automatic-releases',
-      testRegex: 'packages/automatic-releases/__tests__',
-      testPathIgnorePatterns: ['/__tests__/payloads', '/__tests__/utils/', '/__tests__/assets'],
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-    },
   ],
   coverageReporters: ['text'],
   coverageThreshold: {
@@ -25,7 +18,6 @@ module.exports = {
   },
   collectCoverageFrom: [
     '**/packages/automatic-releases/**/*.ts',
-    '!**/__tests__/**',
     '!**/dist/**',
     '!**/packages/automatic-releases/src/index.ts',
     '!**/packages/automatic-releases/src/uploadReleaseArtifacts.ts',

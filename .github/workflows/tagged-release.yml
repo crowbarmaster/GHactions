@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - id: "yarn-cache"
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -43,6 +43,7 @@ jobs:
 
       - uses: "crowbarmaster/GH-Automatic-Releases@latest"
         with:
+          automatic_release_tag: "${{ inputs.FromTag }}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
@@ -54,4 +55,5 @@ jobs:
         env:
           GITHUB_SUPER_TOKEN: ${{ secrets.SUPER_TOKEN }}
         run: |
+          $AUTOMATIC_RELEASES_TAG = "${{ inputs.FromTag }}"
           ./scripts/mirror-actions.sh "$AUTOMATIC_RELEASES_TAG"

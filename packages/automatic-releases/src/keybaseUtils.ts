@@ -16,7 +16,9 @@ export const getShortenedUrl = async (url: string): Promise<string> => {
     }
     return shortUrl;
   } catch (error) {
-    core.error(`Unable to retrieve a shortened git url: ${error.message}`);
+    if (error instanceof Error) {
+      core.error(`Unable to retrieve a shortened git url: ${error.message}`);
+    }
     return url;
   }
 };

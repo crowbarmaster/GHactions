@@ -2,3 +2,5 @@ dist/
 node_modules
 .env.ini
 /.vs
+.yarn
+.yarnrc.yml

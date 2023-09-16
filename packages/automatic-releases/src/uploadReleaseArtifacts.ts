@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import globby from 'globby';
+import {globby} from 'globby';
 import {readFileSync} from 'fs';
 import * as types from '@octokit/types';
 import path from 'path';
@@ -16,7 +16,7 @@ export const uploadReleaseArtifacts = async (
 ): Promise<void> => {
   core.startGroup('Uploading release artifacts');
   for (const fileGlob of files) {
-    const paths = await globby.globby(fileGlob);
+    const paths = await globby(fileGlob);
     if (paths.length == 0) {
       core.error(`${fileGlob} doesn't match any files`);
     }

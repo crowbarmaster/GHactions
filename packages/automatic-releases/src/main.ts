@@ -1,7 +1,6 @@
 import * as core from '@actions/core';
-import {getOctokit} from '@actions/github';
+import {context, getOctokit} from '@actions/github';
 import {GitHub} from '@actions/github/lib/utils';
-import {Context} from '@actions/github/lib/context';
 import * as types from '@octokit/types';
 import {RestEndpointMethodTypes} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
 import {dumpGitHubEventPayload} from './keybaseUtils';
@@ -281,11 +280,10 @@ export const getChangelog = async (
 export const main = async (): Promise<void> => {
   try {
     const args = getAndValidateArgs();
-    const context = new Context();
 
     // istanbul ignore next
-    const client = getOctokit(args.repoToken);
-
+      const client = getOctokit(args.repoToken);
+      
     core.startGroup('Initializing the Automatic Releases action');
     dumpGitHubEventPayload();
     core.debug(`Github context: ${JSON.stringify(context)}`);

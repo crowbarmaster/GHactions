@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import {globby} from 'globby';
-import {readFileSync} from 'fs';
+import {readFileSync, existsSync} from 'fs';
 import * as types from '@octokit/types';
 import path from 'path';
 import md5File from 'md5-file';
@@ -16,7 +16,7 @@ export const uploadReleaseArtifacts = async (
 ): Promise<void> => {
   core.startGroup('Uploading release artifacts');
   for (const fileGlob of files) {
-    const paths = await globby(fileGlob);
+    const paths = await globby(fileGlob, {});
     if (paths.length == 0) {
       core.error(`${fileGlob} doesn't match any files`);
     }

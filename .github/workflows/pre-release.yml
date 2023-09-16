@@ -2,9 +2,10 @@
 name: "pre-release"
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - "upgrade"
+      - "master"
     tags-ignore:
       - "*"
 
@@ -18,13 +19,12 @@ jobs:
       - name: "Checkout source code"
         uses: "actions/checkout@v4.0.0"
         with:
-          ref: "upgrade"
           lfs: true
           fetch-depth: 0
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - id: "yarn-cache"
         run: echo "::set-output name=dir::$(yarn cache dir)"

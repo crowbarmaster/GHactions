@@ -290,7 +290,11 @@ export const main = async (): Promise<void> => {
     core.endGroup();
 
     core.startGroup('Determining release tags');
-    const releaseTag = args.automaticReleaseTag ? args.automaticReleaseTag : parseGitTag(context.ref);
+    const tagRef:string = context.ref;
+    core.info(`Current tag ref: ${tagRef}`);
+    const parsedTag:string = parseGitTag(tagRef);
+    core.info(`Parsed tag ref: ${parsedTag}`);
+    const releaseTag = args.automaticReleaseTag ? args.automaticReleaseTag : parsedTag;
     if (!releaseTag) {
       throw new Error(
         `The parameter "automatic_release_tag" was not set and this does not appear to be a GitHub tag event. (Event: ${context.ref})`,

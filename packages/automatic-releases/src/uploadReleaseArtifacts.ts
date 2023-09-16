@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import {globby} from 'globby';
-import {readFileSync, existsSync} from 'fs';
+import {readFileSync} from 'fs';
 import * as types from '@octokit/types';
 import path from 'path';
 import md5File from 'md5-file';

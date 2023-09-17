@@ -32,10 +32,10 @@ jobs:
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          
+
       - run: "yarn set version stable"
       - run: "yarn plugin import @yarnpkg/plugin-workspace-tools"
-      - run: "yarn install --immutable"
+      - run: "yarn install"
       - run: "yarn lintfix"
       - run: "yarn lint"
       - run: "yarn build"

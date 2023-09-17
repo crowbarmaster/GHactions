@@ -24,14 +24,13 @@ export const uploadReleaseArtifacts = async (
     for (const filePath of paths) {
       core.info(`Uploading: ${filePath}`);
       const nameWithExt = path.basename(filePath);
-
       try {
         await client.rest.repos.uploadReleaseAsset({
           owner: releaseParams.owner,
           repo: releaseParams.repo,
           release_id: uploadId,
           name: nameWithExt,
-          data: await readFileSync(filePath, {encoding: 'utf-8'}),
+          data: await readFileSync(filePath, {encoding: "binary"}),
         });
       } catch (err) {
         if (err instanceof Error) {

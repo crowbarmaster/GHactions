@@ -30,7 +30,7 @@ jobs:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - run: "yarn install --immutable-cache"
+      - run: "yarn install --immutables"
       - run: "yarn lintfix"
       - run: "yarn lint"
       - run: "yarn build"

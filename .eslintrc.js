@@ -10,7 +10,7 @@ module.exports = {
   ],
   plugins: ['prettier', 'jest'],
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2023,
     sourceType: 'module',
   },
   rules: {

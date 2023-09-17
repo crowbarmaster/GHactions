@@ -1,0 +1,4 @@
+!package.json
+!lerna.json
+.prettierrc.js
+!.*.js

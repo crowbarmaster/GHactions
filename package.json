@@ -16,12 +16,12 @@
     "build": "lerna run build --stream",
     "clean": "lerna run clean --stream && rm -rf node_modules yarn-error.log",
     "reinstall": "yarn clean; yarn install --frozen-lockfile",
-    "lint": "lerna run lint --stream && yarn run lint:eslint && yarn run lint:prettier",
+    "lint": "lerna run lint --verbose --stream && yarn run lint:eslint && yarn run lint:prettier",
     "lint:eslint": "eslint --max-warnings=0 .*.js *.js",
-    "lint:prettier": "prettier --list-different *.{json,md,yaml,yml} .github/**/*.{json,md,yaml,yml} !package.json !lerna.json",
-    "lintfix": "lerna run lintfix --stream && yarn run lintfix:eslint && yarn run lintfix:prettier",
-    "lintfix:eslint": "eslint --fix  .*.js *.js",
-    "lintfix:prettier": "prettier --write *.{json,md,yaml,yml} .github/**/*.{json,md,yaml,yml} !package.json !lerna.json",
+    "lint:prettier": "prettier --list-different *.{json,md,yaml,yml} .github/**/*.{json,md,yaml,yml}",
+    "lintfix": "lerna run lint --verbose --stream && yarn run lintfix:eslint && yarn run lintfix:prettier",
+    "lintfix:eslint": "eslint --fix .*.js *.js",
+    "lintfix:prettier": "prettier --write *.{json,md,yaml,yml} .github/**/*.{json,md,yaml,yml}",
     "release": "lerna version"
   },
   "engines": {
@@ -50,9 +50,6 @@
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   },
-  "eslintIgnore": [
-    "!.*.js"
-  ],
   "dependencies": {
     "yarn": "^1.22.19"
   }

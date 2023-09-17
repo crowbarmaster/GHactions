@@ -8,8 +8,7 @@ module.exports = {
     '^.+\\.tsx$': 'babel-jest',
   },
   collectCoverage: true,
-  projects: [
-  ],
+  projects: [],
   coverageReporters: ['text'],
   coverageThreshold: {
     global: {

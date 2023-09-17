@@ -4149,11 +4149,17 @@ __metadata:
     conventional-changelog-angular: ^7.0.0
     conventional-commits-parser: ^5.0.0
     eslint: ^8.49.0
+    eslint-config-prettier: ^9.0.0
+    eslint-plugin-jest: ^27.4.0
+    eslint-plugin-prettier: ^5.0.0
     express: ^4.18.2
     globby: ^13.2.2
+    jest: ^29.7.0
+    jest-circus: ^29.7.0
     md5-file: ^5.0.0
     nock: ^13.3.3
     portfinder: ^1.0.32
+    prettier: ^3.0.3
     semver: ^7.5.4
     terser-webpack-plugin: ^5.3.9
     ts-loader: ^9.4.4

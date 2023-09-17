@@ -41,7 +41,6 @@
     "@typescript-eslint/parser": "^6.7.0",
     "babel-jest": "^29.7.0",
     "debug": "^4.3.4",
-    "supports-color": "^9.4.0",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-jest": "^27.4.0",
@@ -50,9 +49,11 @@
     "jest-circus": "^29.7.0",
     "lerna": "^7.3.0",
     "prettier": "^3.0.3",
+    "supports-color": "^9.4.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
     "yarn": "^1.22.19"
-  }
+  },
+  "packageManager": "yarn@3.6.3"
 }

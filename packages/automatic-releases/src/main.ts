@@ -117,7 +117,7 @@ const generateNewGitHubRelease = async (
   core.info('Creating new release');
   const resp = await client.rest.repos.createRelease(releaseInfo);
   core.endGroup();
-  return resp;
+  return resp.data;
 };
 
 const searchForPreviousReleaseTag = async (

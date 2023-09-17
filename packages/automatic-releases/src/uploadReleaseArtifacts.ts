@@ -30,7 +30,7 @@ export const uploadReleaseArtifacts = async (
           repo: releaseParams.repo,
           release_id: uploadId,
           name: nameWithExt,
-          data: await readFileSync(filePath, {encoding: "binary"}),
+          data: await readFileSync(filePath, {encoding: 'binary'}),
         });
       } catch (err) {
         if (err instanceof Error) {

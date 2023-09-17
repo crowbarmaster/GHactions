@@ -70,7 +70,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.22.19":
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.22.20":
   version: 7.22.20
   resolution: "@babel/core@npm:7.22.20"
   dependencies:
@@ -1233,7 +1233,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.22.15":
+"@babel/preset-env@npm:^7.22.20":
   version: 7.22.20
   resolution: "@babel/preset-env@npm:7.22.20"
   dependencies:
@@ -2973,7 +2973,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^20.6.2":
   version: 20.6.2
   resolution: "@types/node@npm:20.6.2"
   checksum: 96fe5303872640a173f3fd43e289a451776ed5b8f0090094447c6790b43f23fb607eea8268af0829cef4d132e5afa0bfa4cd871aa7412e9042a414a698e9e971
@@ -4118,12 +4118,14 @@ __metadata:
     "@actions/github": ^5.1.1
     "@octokit/rest": ^20.0.1
     "@octokit/types": ^11.1.0
+    "@types/node": ^20.6.2
     "@typescript-eslint/eslint-plugin": ^6.7.0
     "@typescript-eslint/parser": ^6.7.0
     axios: ^1.5.0
     conventional-changelog-angular: ^7.0.0
     conventional-commits-parser: ^5.0.0
     debug: ^4.3.4
+    encoding: ^0.1.13
     eslint: ^8.49.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-jest: ^27.4.0
@@ -5912,18 +5914,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "github-actions@workspace:."
   dependencies:
-    "@babel/core": ^7.22.19
+    "@babel/core": ^7.22.20
     "@babel/plugin-transform-class-properties": ^7.22.5
     "@babel/plugin-transform-optional-chaining": ^7.22.15
-    "@babel/preset-env": ^7.22.15
+    "@babel/preset-env": ^7.22.20
     "@babel/preset-typescript": ^7.22.15
     "@commitlint/cli": ^17.7.1
     "@commitlint/config-conventional": ^17.7.0
+    "@octokit/types": ^11.1.0
     "@types/jest": ^29.5.5
+    "@types/node": ^20.6.2
     "@typescript-eslint/eslint-plugin": ^6.7.0
     "@typescript-eslint/parser": ^6.7.0
     babel-jest: ^29.7.0
+    conventional-commits-parser: ^5.0.0
     debug: ^4.3.4
+    encoding: ^0.1.13
     eslint: ^8.49.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-jest: ^27.4.0
@@ -5934,7 +5940,6 @@ __metadata:
     prettier: ^3.0.3
     supports-color: ^9.4.0
     typescript: ^5.2.2
-    yarn: ^1.22.19
   languageName: unknown
   linkType: soft
 

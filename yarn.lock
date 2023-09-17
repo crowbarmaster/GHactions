@@ -4148,6 +4148,7 @@ __metadata:
     axios: ^1.5.0
     conventional-changelog-angular: ^7.0.0
     conventional-commits-parser: ^5.0.0
+    debug: ^4.3.4
     eslint: ^8.49.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-jest: ^27.4.0
@@ -5946,6 +5947,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^6.7.0
     "@typescript-eslint/parser": ^6.7.0
     babel-jest: ^29.7.0
+    debug: ^4.3.4
     eslint: ^8.49.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-jest: ^27.4.0

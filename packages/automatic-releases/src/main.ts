@@ -127,7 +127,7 @@ const searchForPreviousReleaseTag = async (
 ): Promise<string> => {
   core.debug(`releaseTag: ${currentReleaseTag}`);
   const validSemver = semverValid(currentReleaseTag);
-  if (!validSemver) {
+  if (validSemver == null) {
     throw new Error(
       `The parameter "automatic_release_tag" was not set and the current tag "${currentReleaseTag}" does not appear to conform to semantic versioning.`,
     );
@@ -144,6 +144,7 @@ const searchForPreviousReleaseTag = async (
       .map((tag: GitTagDetailObject) => {
         core.debug(`Currently processing tag ${tag.name}`);
         const t = semverValid(tag.name);
+        core.debug(`semverValid result: ${t}`);
         let semTag: string = '';
         if (t !== null) {
           semTag = t;
@@ -157,7 +158,13 @@ const searchForPreviousReleaseTag = async (
         return tag.semverTag !== null;
       })
       .sort((a, b) => {
-        return semverRcompare(a.semverTag, b.semverTag);
+        let result = 0;
+        try {
+          result = semverRcompare(a.semverTag, b.semverTag);
+        } catch {
+          return 0;
+        }
+        return result;
       });
 
     for (const tag of tagList) {
@@ -302,8 +309,9 @@ export const main = async (): Promise<void> => {
     core.info(`Current tag ref: ${tagRef}`);
     const parsedTag: string = parseGitTag(tagRef);
     core.info(`Parsed tag ref: ${parsedTag}`);
+    core.info(`ART arg: ${args.automaticReleaseTag}`);
     const releaseTag = args.automaticReleaseTag ? args.automaticReleaseTag : parsedTag;
-    if (!releaseTag) {
+    if (releaseTag == '') {
       throw new Error(
         `The parameter "automatic_release_tag" was not set and this does not appear to be a GitHub tag event. (Event: ${context.ref})`,
       );

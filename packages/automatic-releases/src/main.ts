@@ -125,44 +125,52 @@ const searchForPreviousReleaseTag = async (
   currentReleaseTag: string,
   tagInfo: ReposListTagsParams,
 ): Promise<string> => {
+  core.debug(`releaseTag: ${currentReleaseTag}`);
   const validSemver = semverValid(currentReleaseTag);
   if (!validSemver) {
     throw new Error(
       `The parameter "automatic_release_tag" was not set and the current tag "${currentReleaseTag}" does not appear to conform to semantic versioning.`,
     );
   }
+  core.debug(`valid semver: ${validSemver}`);
 
   const listTagsOptions = client.rest.repos.listTags.endpoint.merge(tagInfo);
   const tl = await client.paginate<GitTagDetailObject>(listTagsOptions);
-
-  const tagList = tl
-    .map((tag: GitTagDetailObject) => {
-      core.debug(`Currently processing tag ${tag.name}`);
-      const t = semverValid(tag.name);
-      let semTag: string = '';
-      if (t !== null) {
-        semTag = t;
-      }
-      return {
-        ...tag,
-        semverTag: semTag,
-      };
-    })
-    .filter((tag: GitTagDetailObject) => {
-      return tag.semverTag !== null;
-    })
-    .sort((a, b) => {
-      return semverRcompare(a.semverTag, b.semverTag);
-    });
-
+  core.debug(`Pagination okay!`);
   let previousReleaseTag = '';
-  for (const tag of tagList) {
-    if (semverLt(tag.semverTag, currentReleaseTag)) {
-      previousReleaseTag = tag.name;
-      break;
+
+  try {
+    const tagList = tl
+      .map((tag: GitTagDetailObject) => {
+        core.debug(`Currently processing tag ${tag.name}`);
+        const t = semverValid(tag.name);
+        let semTag: string = '';
+        if (t !== null) {
+          semTag = t;
+        }
+        return {
+          ...tag,
+          semverTag: semTag,
+        };
+      })
+      .filter((tag: GitTagDetailObject) => {
+        return tag.semverTag !== null;
+      })
+      .sort((a, b) => {
+        return semverRcompare(a.semverTag, b.semverTag);
+      });
+
+    for (const tag of tagList) {
+      if (semverLt(tag.semverTag, currentReleaseTag)) {
+        previousReleaseTag = tag.name;
+        break;
+      }
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(`Error with tag sort and filter. Error: ${error.message}`);
     }
   }
-
   return previousReleaseTag;
 };
 

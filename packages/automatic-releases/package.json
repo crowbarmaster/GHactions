@@ -1,6 +1,6 @@
 {
   "name": "cbgh-automatic-releases",
-  "version": "1.4.2",
+  "version": "1.4.4",
   "private": true,
   "description": "Generate automatic releases whenever changes land on master",
   "main": "dist/index.js",

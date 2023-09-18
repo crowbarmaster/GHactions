@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import {globby} from 'globby';
-import {readFileSync} from 'fs';
+import {createReadStream} from 'fs';
 import * as types from '@octokit/types';
 import path from 'path';
 import md5File from 'md5-file';
@@ -8,6 +8,7 @@ import {GitHub} from '@actions/github/lib/utils';
 
 type ReposCreateReleaseParams = types.Endpoints['POST /repos/{owner}/{repo}/releases']['parameters'];
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export const uploadReleaseArtifacts = async (
   client: InstanceType<typeof GitHub>,
   releaseParams: ReposCreateReleaseParams,
@@ -30,7 +31,7 @@ export const uploadReleaseArtifacts = async (
           repo: releaseParams.repo,
           release_id: uploadId,
           name: nameWithExt,
-          data: await readFileSync(filePath, {encoding: 'binary'}),
+          data: createReadStream(filePath) as any,
         });
       } catch (err) {
         if (err instanceof Error) {
@@ -47,7 +48,7 @@ export const uploadReleaseArtifacts = async (
           repo: releaseParams.repo,
           release_id: uploadId,
           name: newName,
-          data: await readFileSync(filePath, {encoding: 'utf-8'}),
+          data: createReadStream(filePath) as any,
         });
       }
     }

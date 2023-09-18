@@ -19,7 +19,7 @@
     "lint": "lerna run lint --verbose --stream && yarn run lint:eslint && yarn run lint:prettier",
     "lint:eslint": "eslint --max-warnings=0 .*.js *.js",
     "lint:prettier": "prettier --list-different *.{json,md,yaml,yml} .github/**/*.{json,md,yaml,yml}",
-    "lintfix": "lerna run lint --verbose --stream && yarn run lintfix:eslint && yarn run lintfix:prettier",
+    "lintfix": "lerna run lintfix --verbose --stream && yarn run lintfix:eslint && yarn run lintfix:prettier",
     "lintfix:eslint": "eslint --fix .*.js *.js",
     "lintfix:prettier": "prettier --write *.{json,md,yaml,yml} .github/**/*.{json,md,yaml,yml}",
     "release": "lerna version"

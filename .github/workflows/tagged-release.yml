@@ -31,7 +31,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - run: "yarn install --immutable"
-      - run: "yarn lintfix"
       - run: "yarn lint"
       - run: "yarn build"
 

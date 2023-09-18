@@ -13,6 +13,7 @@ export const uploadReleaseArtifacts = async (
   client: InstanceType<typeof GitHub>,
   releaseParams: ReposCreateReleaseParams,
   uploadId: number,
+  uploadUrl: string,
   files: string[],
 ): Promise<void> => {
   core.startGroup('Uploading release artifacts');
@@ -37,17 +38,18 @@ export const uploadReleaseArtifacts = async (
 
       const nameWithExt = path.basename(filePath);
       try {
-        await client.rest.repos.uploadReleaseAsset({
-          url: releaseParams.data.upload_url,
-          headers: {
-            'content-type': 'binary/octet-stream',
-            'content-length': file_size,
-          },
+        await client.request('POST /repos/{owner}/{repo}/releases/{release_id}/assets{?name,label}', {
+          url: uploadUrl,
           owner: releaseParams.owner,
           repo: releaseParams.repo,
           release_id: uploadId,
           name: nameWithExt,
           data: createReadStream(filePath) as any,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28',
+            'content-type': 'binary/octet-stream',
+            'content-length': file_size,
+          },
         });
       } catch (err) {
         if (err instanceof Error) {
@@ -59,12 +61,18 @@ export const uploadReleaseArtifacts = async (
         const basename = path.basename(filePath, path.extname(filePath));
         const ext = path.extname(filePath);
         const newName = `${basename}-${hash}${ext}`;
-        await client.rest.repos.uploadReleaseAsset({
+        await client.request('POST /repos/{owner}/{repo}/releases/{release_id}/assets{?name,label}', {
+          url: uploadUrl,
           owner: releaseParams.owner,
           repo: releaseParams.repo,
           release_id: uploadId,
           name: newName,
           data: createReadStream(filePath) as any,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28',
+            'content-type': 'binary/octet-stream',
+            'content-length': file_size,
+          },
         });
       }
     }

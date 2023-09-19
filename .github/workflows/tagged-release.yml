@@ -24,7 +24,12 @@ jobs:
           node-version: 20
 
       - id: "yarn-cache"
-        run: echo "dir=$(yarn cache dir)" >> "$GITHUB_ENV"
+        run: |
+          {
+            echo 'dir<<EOF'
+            echo '$(yarn cache dir)'
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
       - uses: "actions/cache@v3.3.2"
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}

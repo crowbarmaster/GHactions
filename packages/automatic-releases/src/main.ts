@@ -34,17 +34,21 @@ type GitTagDetailObject = {
 type Args = {
   repoToken: string;
   automaticReleaseTag: string;
+  overwriteExistingTag: string;
   draftRelease: boolean;
   preRelease: boolean;
   releaseTitle: string;
   releaseBody: string;
   files: string[];
+  generateReleaseNotes: boolean;
 };
 
 const getAndValidateArgs = (): Args => {
   const args = {
     repoToken: core.getInput('repo_token', {required: true}),
     automaticReleaseTag: core.getInput('automatic_release_tag', {required: false}),
+    overwriteExistingTag: core.getInput('overwrite_tag', {required: false}),
+    generateReleaseNotes: JSON.parse(core.getInput('generate_notes', {required: false})),
     draftRelease: JSON.parse(core.getInput('draft', {required: true})),
     preRelease: JSON.parse(core.getInput('prerelease', {required: true})),
     releaseTitle: core.getInput('title', {required: false}),
@@ -345,14 +349,16 @@ export const main = async (): Promise<void> => {
         sha: context.sha,
       });
 
-      await deletePreviousGitHubRelease(client, {
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        tag: args.automaticReleaseTag,
-      });
+      if (args.overwriteExistingTag) {
+        await deletePreviousGitHubRelease(client, {
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          tag: args.automaticReleaseTag,
+        });
+      }
     }
 
-    const releaseParams = {
+    const releaseParams: ReposCreateReleaseParams = {
       owner: context.repo.owner,
       repo: context.repo.repo,
       tag_name: releaseTag,
@@ -376,6 +382,7 @@ export const main = async (): Promise<void> => {
     core.exportVariable('AUTOMATIC_RELEASES_TAG', releaseTag);
     core.setOutput('automatic_releases_tag', releaseTag);
     core.setOutput('upload_url', releaseUploadInfo.data.upload_url);
+    core.setOutput('release_id', releaseUploadInfo.data.id);
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message);

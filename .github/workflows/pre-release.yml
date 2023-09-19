@@ -24,10 +24,10 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - id: "yarn-cache"
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn cache dir)" >> "$GITHUB_ENV"
       - uses: "actions/cache@v3.3.2"
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}

@@ -374,13 +374,15 @@ export const main = async (): Promise<void> => {
 
     const releaseUploadInfo = await generateNewGitHubRelease(client, releaseParams);
 
-    await uploadReleaseArtifacts(
-      client,
-      releaseParams,
-      releaseUploadInfo.data.id,
-      releaseUploadInfo.data.upload_url,
-      args.files,
-    );
+    if (args.files && args.files.length > 0) {
+      await uploadReleaseArtifacts(
+        client,
+        releaseParams,
+        releaseUploadInfo.data.id,
+        releaseUploadInfo.data.upload_url,
+        args.files,
+      );
+    }
 
     core.debug(`Exporting environment variable AUTOMATIC_RELEASES_TAG with value ${releaseTag}`);
     core.exportVariable('AUTOMATIC_RELEASES_TAG', releaseTag);

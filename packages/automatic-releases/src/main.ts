@@ -11,6 +11,7 @@ import semverValid from 'semver/functions/valid';
 import semverRcompare from 'semver/functions/rcompare';
 import semverLt from 'semver/functions/lt';
 import {uploadReleaseArtifacts} from './uploadReleaseArtifacts';
+import {globby} from 'globby';
 
 type GitCreateRefParams = types.Endpoints['POST /repos/{owner}/{repo}/git/refs']['parameters'];
 type GitGetRefParams = types.Endpoints['GET /repos/{owner}/{repo}/git/ref/{ref}']['parameters'];
@@ -62,6 +63,15 @@ const getAndValidateArgs = (): Args => {
   }
 
   return args;
+};
+
+const testFileGlob = async (glob: string[]) => {
+  for (const fileGlob of glob) {
+    const paths = await globby(fileGlob, {});
+    if (paths.length == 0) {
+      throw new Error(`Your action specifies the file glob: ${fileGlob}, but no match was made. Exiting!`);
+    }
+  }
 };
 
 const createReleaseTag = async (client: InstanceType<typeof GitHub>, refInfo: GitCreateRefParams) => {
@@ -300,6 +310,8 @@ export const main = async (): Promise<void> => {
   try {
     const args = getAndValidateArgs();
 
+    testFileGlob(args.files);
+    
     // istanbul ignore next
     const client = getOctokit(args.repoToken);
 

@@ -310,10 +310,10 @@ export const main = async (): Promise<void> => {
 
     core.startGroup('Determining release tags');
     const tagRef: string = context.ref;
-    core.info(`Current tag ref: ${tagRef}`);
+    core.debug(`Current tag ref: ${tagRef}`);
     const parsedTag: string = parseGitTag(tagRef);
-    core.info(`Parsed tag ref: ${parsedTag}`);
-    core.info(`ART arg: ${args.automaticReleaseTag}`);
+    core.debug(`Parsed tag ref: ${parsedTag}`);
+    core.debug(`ART arg: ${args.automaticReleaseTag}`);
     const releaseTag = args.automaticReleaseTag ? args.automaticReleaseTag : parsedTag;
     if (releaseTag == '') {
       throw new Error(

@@ -311,7 +311,7 @@ export const main = async (): Promise<void> => {
     const args = getAndValidateArgs();
 
     testFileGlob(args.files);
-    
+
     // istanbul ignore next
     const client = getOctokit(args.repoToken);
 

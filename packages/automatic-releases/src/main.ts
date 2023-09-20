@@ -34,7 +34,7 @@ type GitTagDetailObject = {
 type Args = {
   repoToken: string;
   automaticReleaseTag: string;
-  overwriteExistingTag: string;
+  overwriteExistingTag: boolean;
   draftRelease: boolean;
   preRelease: boolean;
   releaseTitle: string;
@@ -47,7 +47,7 @@ const getAndValidateArgs = (): Args => {
   const args = {
     repoToken: core.getInput('repo_token', {required: true}),
     automaticReleaseTag: core.getInput('automatic_release_tag', {required: false}),
-    overwriteExistingTag: core.getInput('overwrite_tag', {required: false}),
+    overwriteExistingTag: JSON.parse(core.getInput('overwrite_tag', {required: false})),
     generateReleaseNotes: JSON.parse(core.getInput('generate_notes', {required: false})),
     draftRelease: JSON.parse(core.getInput('draft', {required: true})),
     preRelease: JSON.parse(core.getInput('prerelease', {required: true})),
@@ -339,7 +339,11 @@ export const main = async (): Promise<void> => {
       context.sha,
     );
 
-    const changelog = await getChangelog(client, context.repo.owner, context.repo.repo, commitsSinceRelease);
+    let changelog: string = '';
+
+    if (args.generateReleaseNotes) {
+      changelog = await getChangelog(client, context.repo.owner, context.repo.repo, commitsSinceRelease);
+    }
 
     if (args.automaticReleaseTag) {
       await createReleaseTag(client, {

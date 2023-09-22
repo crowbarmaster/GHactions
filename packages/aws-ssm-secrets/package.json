@@ -1,0 +1,32 @@
+{
+  "name": "aws-ssm-secrets",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Inject AWS SSM Parameter Store secrets as enviroment variables into your GitHub Actions builds",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "clean": "rm -rf node_modules yarn-error.log dist",
+    "lint": "yarn run lint:eslint && yarn run lint:prettier",
+    "lint:eslint": "eslint src/**/*.ts __tests__/**/*.ts .*.js *.js",
+    "lint:prettier": "prettier --list-different **/*.{json,md,yaml,yml}",
+    "lintfix": "yarn run lintfix:eslint && yarn run lintfix:prettier",
+    "lintfix:eslint": "eslint --fix src/**/*.ts __tests__/**/*.ts .*.js *.js",
+    "lintfix:prettier": "prettier --write **/*.{json,md,yaml,yml}"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "aws-sdk": "^2.1462.0"
+  },
+  "main": "dist/index.js",
+  "license": "MIT",
+  "eslintIgnore": [
+    "!.*.js"
+  ],
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}

@@ -7,7 +7,6 @@ import md5File from 'md5-file';
 import {GitHub} from '@actions/github/lib/utils';
 
 type ReposCreateReleaseParams = types.Endpoints['POST /repos/{owner}/{repo}/releases']['parameters'];
-
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const uploadReleaseArtifacts = async (
   client: InstanceType<typeof GitHub>,

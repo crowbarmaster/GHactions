@@ -32,3 +32,13 @@ export const dumpGitHubEventPayload = (): void => {
   const jsonContent = JSON.parse(contents);
   core.info(`GitHub payload: ${JSON.stringify(jsonContent)}`);
 };
+
+export const parseGitTag = (inputRef: string): string => {
+  const re = /^(refs\/)?tags\/(.*)$/;
+  const resMatch = inputRef.match(re);
+  if (!resMatch || !resMatch[2]) {
+    core.debug(`Input "${inputRef}" does not appear to be a tag`);
+    return '';
+  }
+  return resMatch[2];
+};

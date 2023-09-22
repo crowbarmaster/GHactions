@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import {Octokit} from '@octokit/rest';
+import * as fs from 'fs';
 
 import defaultChangelogOpts from 'conventional-changelog-angular';
 
@@ -200,4 +201,14 @@ export const octokitLogger = (...args): string => {
       return JSON.stringify(argCopy);
     })
     .reduce((acc, val) => `${acc} ${val}`, '');
+};
+
+export const dumpGitHubEventPayload = (): void => {
+  const ghpath: string = process.env['GITHUB_EVENT_PATH'] || '';
+  if (!ghpath) {
+    throw new Error('Environment variable GITHUB_EVENT_PATH does not appear to be set.');
+  }
+  const contents = fs.readFileSync(ghpath, 'utf8');
+  const jsonContent = JSON.parse(contents);
+  core.info(`GitHub payload: ${JSON.stringify(jsonContent)}`);
 };

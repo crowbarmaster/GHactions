@@ -1,6 +1,7 @@
 import * as path from 'path';
 import fs from 'fs';
 import {generateChangelogFromParsedCommits, octokitLogger} from '../src/utils';
+import {describe, expect, it, vitest as jest, beforeEach, afterEach} from 'vitest';
 
 describe('changelog generator', () => {
   beforeEach(() => {

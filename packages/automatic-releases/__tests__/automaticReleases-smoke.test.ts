@@ -8,6 +8,7 @@ import portfinder from 'portfinder';
 import * as mockNewReleaseTag from './utils/mockNewReleaseTag';
 import * as mockUpdateExistingTag from './utils/mockUpdateExistingTag';
 import which from 'which';
+import {describe, expect, it} from 'vitest';
 
 const exec = util.promisify(child_process.exec);
 

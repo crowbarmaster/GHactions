@@ -1,4 +1,4 @@
-/* eslint-disable jest/no-focused-tests,jest/no-export,jest/expect-expect */
+import {test} from 'vitest';
 
 const skipSmokeTestsLocally = (): void => {
   if (process.env['GITHUB_ACTIONS'] !== 'true') {

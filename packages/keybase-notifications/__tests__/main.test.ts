@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import * as process from 'process';
 import * as path from 'path';
 import nock from 'nock';
+import {describe, expect, it, vitest, beforeEach, afterEach} from 'vitest';
+import {main} from '../src/main';
 
 describe('main handler', () => {
-  let mockUtils;
-
   beforeEach(() => {
-    jest.resetModules();
+    vitest.resetModules();
     nock.disableNetConnect();
 
     process.env['INPUT_OPENSENTINEL_TOKEN'] = 'abcd1234fake';
@@ -24,17 +23,10 @@ describe('main handler', () => {
     process.env['GITHUB_ACTOR'] = 'marvinpinto';
     process.env['GITHUB_EVENT_PATH'] = path.join(__dirname, 'payloads', 'force-push.json');
     process.env['GITHUB_REPOSITORY'] = 'marvinpinto/private-actions-tester';
-
-    mockUtils = {
-      getShortenedUrl: jest.fn().mockResolvedValue('https://example.com'),
-    };
-    jest.mock('../src/utils', () => {
-      return mockUtils;
-    });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vitest.clearAllMocks();
     nock.cleanAll();
     nock.enableNetConnect();
   });
@@ -49,8 +41,7 @@ describe('main handler', () => {
         message: 'Thanks!',
       });
 
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 
@@ -65,8 +56,7 @@ describe('main handler', () => {
         message: 'Thanks!',
       });
 
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 
@@ -80,9 +70,7 @@ describe('main handler', () => {
       .reply(202, {
         message: 'Thanks!',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 
@@ -96,9 +84,7 @@ describe('main handler', () => {
       .reply(202, {
         message: 'Thanks!',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 
@@ -112,9 +98,7 @@ describe('main handler', () => {
       .reply(202, {
         message: 'Thanks!',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 
@@ -128,9 +112,7 @@ describe('main handler', () => {
       .reply(202, {
         message: 'Thanks!',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 
@@ -144,9 +126,7 @@ describe('main handler', () => {
       .reply(202, {
         message: 'Thanks!',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(false);
   });
 
@@ -161,9 +141,7 @@ describe('main handler', () => {
       .reply(202, {
         message: 'Thanks!',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(false);
   });
 
@@ -176,9 +154,7 @@ describe('main handler', () => {
       .reply(408, {
         message: 'Something terribly bad happened here',
       });
-
-    const inst = require('../src/main');
-    await inst.main();
+    await main();
     expect(opensentinelAPIcall.isDone()).toBe(true);
   });
 });

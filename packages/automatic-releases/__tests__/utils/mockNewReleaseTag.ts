@@ -7,6 +7,8 @@ const server = express();
 const testGhToken = 'fake-secret-token';
 const testGhSHA = 'f6f40d9fbd1130f7f2357bb54225567dbd7a3793';
 const testInputAutomaticReleaseTag = 'testingtaglatest';
+const testOverwriteTag = false;
+const testAutoGenNotes = false;
 const testInputDraft = false;
 const testInputPrerelease = true;
 const testInputTitle = 'Development Build';
@@ -45,6 +47,8 @@ server.post('/repos/marvinpinto/private-actions-tester/releases', (req, res) => 
 export const setupEnv = {
   INPUT_REPO_TOKEN: testGhToken,
   INPUT_AUTOMATIC_RELEASE_TAG: testInputAutomaticReleaseTag,
+  INPUT_OVERWRITE: testOverwriteTag.toString(),
+  INPUT_AUTONOTES: testAutoGenNotes.toString(),
   INPUT_DRAFT: testInputDraft.toString(),
   INPUT_PRERELEASE: testInputPrerelease.toString(),
   INPUT_TITLE: testInputTitle,

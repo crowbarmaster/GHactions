@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import {describe, expect, it, vitest as jest, beforeEach, afterEach} from 'vitest';
+import {main} from '../src/main';
 
 describe('main handler', () => {
   beforeEach(() => {
@@ -10,7 +12,6 @@ describe('main handler', () => {
   });
 
   it('throws an error when "repo_token" is not supplied', async () => {
-    const inst = require('../src/main');
-    await expect(inst.main()).rejects.toThrow('Input required and not supplied: repo_token');
+    await expect(main()).rejects.toThrow('Input required and not supplied: repo_token');
   });
 });

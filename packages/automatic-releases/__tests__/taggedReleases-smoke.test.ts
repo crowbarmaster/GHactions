@@ -7,6 +7,7 @@ import os from 'os';
 import portfinder from 'portfinder';
 import * as mockNewTaggedRelease from './utils/mockNewTaggedRelease';
 import which from 'which';
+import {describe, expect, it} from 'vitest';
 
 const exec = util.promisify(child_process.exec);
 

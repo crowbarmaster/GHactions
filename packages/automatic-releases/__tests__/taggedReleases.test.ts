@@ -3,13 +3,16 @@ import * as path from 'path';
 import nock from 'nock';
 import fs from 'fs';
 import {uploadReleaseArtifacts} from '../src/uploadReleaseArtifacts';
+import {GitHub} from '@actions/github/lib/utils';
+import {describe, expect, it, vitest, MockedFunction, beforeEach, afterEach} from 'vitest';
 import {main} from '../src/main';
 import * as core from '@actions/core';
+import { getOctokit } from '@actions/github';
 
-jest.mock('../src/uploadReleaseArtifacts');
+vitest.mock('../src/uploadReleaseArtifacts');
 
-const mockedUploadReleaseArtifacts = uploadReleaseArtifacts as jest.MockedFunction<typeof uploadReleaseArtifacts>;
-
+const mockedUploadReleaseArtifacts = uploadReleaseArtifacts as MockedFunction<typeof uploadReleaseArtifacts>;
+const mockGitHub = getOctokit as MockedFunction<typeof getOctokit>;
 describe('main handler processing tagged releases', () => {
   const testGhToken = 'fake-secret-token';
   const testGhSHA = 'f6f40d9fbd1130f7f2357bb54225567dbd7a3793';
@@ -19,7 +22,7 @@ describe('main handler processing tagged releases', () => {
   const testInputFiles = 'file1.txt\nfile2.txt\n*.jar\n\n';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vitest.clearAllMocks();
     nock.disableNetConnect();
     process.env['INPUT_REPO_TOKEN'] = testGhToken;
     process.env['INPUT_DRAFT'] = testInputDraft.toString();
@@ -35,7 +38,7 @@ describe('main handler processing tagged releases', () => {
     process.env['GITHUB_EVENT_PATH'] = path.join(__dirname, 'payloads', 'git-push.json');
     process.env['GITHUB_REPOSITORY'] = 'marvinpinto/private-actions-tester';
 
-    mockedUploadReleaseArtifacts.mockImplementation().mockResolvedValue();
+    mockedUploadReleaseArtifacts.getMockImplementation();
   });
 
   afterEach(() => {

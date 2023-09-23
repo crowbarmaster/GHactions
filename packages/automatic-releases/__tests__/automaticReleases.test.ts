@@ -1,15 +1,16 @@
 import * as process from 'process';
 import * as path from 'path';
 import nock from 'nock';
+import {describe, expect, it, vitest, MockedFunction, beforeEach, afterEach} from 'vitest';
 import fs from 'fs';
 import {uploadReleaseArtifacts} from '../src/uploadReleaseArtifacts';
 import {main} from '../src/main';
 import * as core from '@actions/core';
 import * as utils from '../src/utils';
 
-jest.mock('../src/uploadReleaseArtifacts');
+vitest.mock('../src/uploadReleaseArtifacts');
 
-const mockedUploadReleaseArtifacts = uploadReleaseArtifacts as jest.MockedFunction<typeof uploadReleaseArtifacts>;
+const mockedUploadReleaseArtifacts = uploadReleaseArtifacts as MockedFunction<typeof uploadReleaseArtifacts>;
 
 describe('main handler processing automatic releases', () => {
   const testGhToken = 'fake-secret-token';
@@ -22,7 +23,7 @@ describe('main handler processing automatic releases', () => {
   const testInputFiles = 'file1.txt\nfile2.txt\n*.jar\n\n';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vitest.clearAllMocks();
     nock.disableNetConnect();
     process.env['INPUT_REPO_TOKEN'] = testGhToken;
     process.env['INPUT_AUTOMATIC_RELEASE_TAG'] = testInputAutomaticReleaseTag;
@@ -40,7 +41,7 @@ describe('main handler processing automatic releases', () => {
     process.env['GITHUB_EVENT_PATH'] = path.join(__dirname, 'payloads', 'git-push.json');
     process.env['GITHUB_REPOSITORY'] = 'marvinpinto/private-actions-tester';
 
-    mockedUploadReleaseArtifacts.mockImplementation().mockResolvedValue();
+    mockedUploadReleaseArtifacts.getMockImplementation();
   });
 
   afterEach(() => {
@@ -208,7 +209,7 @@ describe('main handler processing automatic releases', () => {
         upload_url: releaseUploadUrl,
       });
 
-    const dumpGitHubEventPayload = jest.spyOn(utils, 'dumpGitHubEventPayload');
+    const dumpGitHubEventPayload = vitest.spyOn(utils, 'dumpGitHubEventPayload');
 
     await main();
 

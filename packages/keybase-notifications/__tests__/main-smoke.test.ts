@@ -7,6 +7,7 @@ import fs from 'fs';
 import portfinder from 'portfinder';
 import * as mockSuccessBuildMsg from './utils/mockSuccessBuildMsg';
 import which from 'which';
+import {describe, expect, it} from 'vitest';
 
 const exec = util.promisify(child_process.exec);
 

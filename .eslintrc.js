@@ -1,14 +1,8 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'plugin:prettier/recommended',
-    'plugin:jest/recommended',
-    'plugin:jest/style',
-  ],
-  plugins: ['prettier', 'jest'],
+  extends: ['plugin:@typescript-eslint/recommended', 'prettier', 'plugin:prettier/recommended'],
+  plugins: ['prettier'],
   parserOptions: {
     ecmaVersion: 2023,
     sourceType: 'module',
@@ -25,9 +19,6 @@ module.exports = {
         printWidth: 120,
       },
     ],
-  },
-  env: {
-    'jest/globals': true,
   },
   reportUnusedDisableDirectives: true,
 };

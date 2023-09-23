@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import {main} from '../src/main';
+import {describe, expect, it, vitest as jest, beforeEach, afterEach} from 'vitest';
 
 const mockGetParameter = jest.mock(`aws-sdk/clients/ssm`);
 describe('main handler', () => {
